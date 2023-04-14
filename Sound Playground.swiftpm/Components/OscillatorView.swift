@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+let keys = ["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"]
+
 struct OscillatorView: View {
     @ObservedObject var oscillator: Oscillator
     var color: Colors
@@ -22,14 +24,20 @@ struct OscillatorView: View {
                 color.getSwiftUIGradient()
                 WaveView(oscillator: oscillator, phase: phase)
                     .stroke(Color.white, lineWidth: 5) // TODO: Add animation to it
-                Color.black.opacity(fingerOnIt ? 0.2 : 0)
+                Color.black.opacity(fingerOnIt ? 0.3 : 0)
                 VStack {
                     Text(String(format: "%.2f%%", oscillator.amplitude * 100))
                         .font(.largeTitle)
                         .foregroundColor(.white)
-                    Text(String(format: oscillator is OscillatorGroup ? "%.2fx" : "%.2f", oscillator.frequency))
-                        .font(.largeTitle)
-                        .foregroundColor(.white)
+                    if oscillator is OscillatorGroup {
+                        Text(String(format: "%.2fx", oscillator.frequency))
+                            .font(.largeTitle)
+                            .foregroundColor(.white)
+                    } else {
+                        Text(String(format: "%.2f Hz (%@%d)", oscillator.frequency, keys[Int((12 * log2(oscillator.frequency / 440)).rounded(.toNearestOrEven)) %% 12], (Int(log2(oscillator.frequency/440)) + 4)))
+                            .font(.largeTitle)
+                            .foregroundColor(.white)
+                    }
                 }
                 .opacity(fingerOnIt ? 1 : 0.0001)
             }
@@ -44,13 +52,13 @@ struct OscillatorView: View {
                         if let initialProperties {
                             if value.translation.width > 0 || value.translation.width < 0 {
                                 if oscillator is OscillatorGroup {
-                                    oscillator.frequency = initialProperties.1 + value.translation.width / 2
+                                    oscillator.frequency = initialProperties.1 + value.translation.width/2
                                 } else {
-                                    oscillator.frequency = pow(2, log2(initialProperties.1) + value.translation.width / 50)
+                                    oscillator.frequency = pow(2, log2(initialProperties.1) + value.translation.width/50)
                                 }
                             }
                             if value.translation.height < 0 || value.translation.height > 0 {
-                                oscillator.amplitude = initialProperties.0 - value.translation.height / 20
+                                oscillator.amplitude = initialProperties.0-value.translation.height/20
                             }
                         } else {
                             initialProperties = (oscillator.amplitude, oscillator.frequency)

@@ -11,6 +11,10 @@ import AVFAudio
 class OscillatorGroup: Oscillator {
     @Published var oscillators = [Oscillator]()
     
+    convenience init() {
+        self.init(amplitude: 1, frequency: 1)
+    }
+    
     func add(oscillator: Oscillator) {
         oscillators.append(oscillator)
     }
@@ -20,8 +24,13 @@ class OscillatorGroup: Oscillator {
     }
     
     override func perform(_ time: Double) -> Double {
-        return oscillators.reduce(time) { partialResult, osc in
-            return partialResult * osc.perform(time)
+        if oscillators.count == 0 {
+            return 0
+        } else {
+            return oscillators.reduce(1) { partialResult, osc in
+                let result = partialResult * osc.perform(time * frequency)
+                return result
+            } * amplitude
         }
     }
 }

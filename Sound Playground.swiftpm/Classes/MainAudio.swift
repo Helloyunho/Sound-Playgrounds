@@ -68,11 +68,6 @@ class MainAudio: ObservableObject {
             return noErr
         }
         
-        let inputFormat = AVAudioFormat(commonFormat: format.commonFormat,
-                                        sampleRate: format.sampleRate,
-                                        channels: 1,
-                                        interleaved: format.isInterleaved)
-        
         audioEngine.attach(audioNode)
         audioEngine.connect(audioNode,
                             to: audioEngine.mainMixerNode,

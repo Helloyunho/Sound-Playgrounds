@@ -24,10 +24,10 @@ struct OscillatorView: View {
                     .stroke(Color.white, lineWidth: 5) // TODO: Add animation to it
                 Color.black.opacity(fingerOnIt ? 0.2 : 0)
                 VStack {
-                    Text(String(format: "%.2f", oscillator.amplitude))
+                    Text(String(format: "%.2f%%", oscillator.amplitude * 100))
                         .font(.largeTitle)
                         .foregroundColor(.white)
-                    Text(String(format: "%.2f", oscillator.frequency))
+                    Text(String(format: oscillator is OscillatorGroup ? "%.2fx" : "%.2f", oscillator.frequency))
                         .font(.largeTitle)
                         .foregroundColor(.white)
                 }
@@ -36,43 +36,21 @@ struct OscillatorView: View {
             .frame(height: 128)
             .clipShape(RoundedRectangle(cornerRadius: 20))
             .gesture(
-                !(
-                    oscillator is OscillatorGroup
-                ) ? DragGesture(minimumDistance: 5, coordinateSpace: .local)
+                DragGesture(minimumDistance: 5, coordinateSpace: .local)
                     .onChanged { value in
                         withAnimation(.easeInOut(duration: 0.2)) {
                             fingerOnIt = true
                         }
                         if let initialProperties {
-                            if value.translation.width > 0 {
-                                let freq = initialProperties.1 + value.translation.width * 1.5
-                                if freq < 20000 {
-                                    oscillator.frequency = freq
+                            if value.translation.width > 0 || value.translation.width < 0 {
+                                if oscillator is OscillatorGroup {
+                                    oscillator.frequency = initialProperties.1 + value.translation.width / 2
                                 } else {
-                                    oscillator.frequency = 20000
-                                }
-                            } else if value.translation.width < 0 {
-                                let freq = initialProperties.1 + value.translation.width * 1.5
-                                if freq > 0 {
-                                    oscillator.frequency = freq
-                                } else {
-                                    oscillator.frequency = 0
+                                    oscillator.frequency = pow(2, log2(initialProperties.1) + value.translation.width / 50)
                                 }
                             }
-                            if value.translation.height < 0 {
-                                let amp = initialProperties.0 - value.translation.height / 20
-                                if amp < 1 {
-                                    oscillator.amplitude = amp
-                                } else {
-                                    oscillator.amplitude = 1
-                                }
-                            } else if value.translation.height > 0 {
-                                let amp = initialProperties.0 - value.translation.height / 20
-                                if amp > 0 {
-                                    oscillator.amplitude = amp
-                                } else {
-                                    oscillator.amplitude = 0
-                                }
+                            if value.translation.height < 0 || value.translation.height > 0 {
+                                oscillator.amplitude = initialProperties.0 - value.translation.height / 20
                             }
                         } else {
                             initialProperties = (oscillator.amplitude, oscillator.frequency)
@@ -85,7 +63,7 @@ struct OscillatorView: View {
                         if initialProperties != nil {
                             self.initialProperties = nil
                         }
-                    } : nil
+                    }
             )
 //            .onChange(of: oscillator.frequency) { freq in
 //                self.phase = 1 / freq

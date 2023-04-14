@@ -37,19 +37,18 @@ struct OscillatorListView: View {
                                 } label: {
                                     Label("Edit", systemImage: "pencil")
                                 }
-                            } else {
-                                Button {
-                                    showFrequencyEditor = true
-                                    selectedOscillator = oscillator
-                                } label: {
-                                    Label("Set Frequency", systemImage: "waveform")
-                                }
-                                Button {
-                                    showAmplitudeEditor = true
-                                    selectedOscillator = oscillator
-                                } label: {
-                                    Label("Set Amplitude", systemImage: "speaker.wave.2.circle")
-                                }
+                            }
+                            Button {
+                                showFrequencyEditor = true
+                                selectedOscillator = oscillator
+                            } label: {
+                                Label(oscillator is OscillatorGroup ? "Set Relative Frequency" : "Set Frequency", systemImage: "waveform")
+                            }
+                            Button {
+                                showAmplitudeEditor = true
+                                selectedOscillator = oscillator
+                            } label: {
+                                Label("Set Amplitude", systemImage: "speaker.wave.2.circle")
                             }
                             Divider()
                             Button(role: .destructive) {
@@ -74,7 +73,7 @@ struct OscillatorListView: View {
             }
         }
         .alert("Set Frequency", isPresented: $showFrequencyEditor) {
-            TextField("Frequency", text: $frequency)
+            TextField(selectedOscillator is OscillatorGroup ? "Reletive frequency (multiply)" : "Frequency", text: $frequency)
                 .keyboardType(.decimalPad)
             Button(role: .cancel) {} label: {
                 Text("Cancel")
@@ -89,14 +88,14 @@ struct OscillatorListView: View {
             }
         }
         .alert("Set Amplitude", isPresented: $showAmplitudeEditor) {
-            TextField("Amplitude", text: $amplitude)
+            TextField("Amplitude (in percentage)", text: $amplitude)
                 .keyboardType(.decimalPad)
             Button(role: .cancel) {} label: {
                 Text("Cancel")
             }
             Button {
-                if let amp = Double(amplitude), 0 < amp && amp < 1, let selectedOscillator {
-                    selectedOscillator.amplitude = amp
+                if let amp = Double(amplitude), let selectedOscillator {
+                    selectedOscillator.amplitude = amp / 100
                 }
                 amplitude = ""
             } label: {

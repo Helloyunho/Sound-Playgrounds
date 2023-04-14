@@ -22,7 +22,7 @@ struct WaveView: Shape {
         // calculate some important values up front
         let width = Double(rect.width)
         let height = Double(rect.height)
-        let midWidth = width / 2
+//        let midWidth = width / 2
         let midHeight = height / 2
 
         // split our total width up based on the frequency

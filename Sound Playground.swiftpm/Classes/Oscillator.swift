@@ -13,13 +13,29 @@ class Oscillator: Identifiable, ObservableObject, Equatable {
         lhs.id == rhs.id && lhs.amplitude == rhs.amplitude && lhs.frequency == rhs.frequency
     }
     
-    @Published var amplitude: Double
-    @Published var frequency: Double
+    @Published var amplitude: Double {
+        didSet {
+            if amplitude > 1 {
+                amplitude = 1
+            } else if amplitude < 0 {
+                amplitude = 0
+            }
+        }
+    }
+    @Published var frequency: Double {
+        didSet {
+            if frequency > 20000 {
+                frequency = 20000
+            } else if frequency < 1 {
+                frequency = 1
+            }
+        }
+    }
     @Published var color: Colors
     var id: UUID
     
     convenience init() {
-        self.init(amplitude: 1, frequency: 1, color: .allCases.randomElement()!)
+        self.init(amplitude: 1, frequency: 440, color: .allCases.randomElement()!)
     }
     
     convenience init(amplitude: Double, frequency: Double) {

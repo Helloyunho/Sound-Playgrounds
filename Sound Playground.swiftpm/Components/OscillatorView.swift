@@ -19,7 +19,6 @@ struct OscillatorView: View {
     @State var initialProperties: (Double, Double)? = nil
     var body: some View {
         VStack {
-//            Text("\(self.phase)")
             ZStack {
                 color.getSwiftUIGradient()
                 WaveView(oscillator: oscillator, phase: phase)
@@ -73,20 +72,10 @@ struct OscillatorView: View {
                         }
                     }
             )
-//            .onChange(of: oscillator.frequency) { freq in
-//                self.phase = 1 / freq
-//            }
-            .task {
-                while true {
-                    withAnimation(.linear(duration: 5)) {
-                        phase = 1
-                    }
-                    do {
-                        try await Task.sleep(nanoseconds: 5 * 1000 * 1000 * 1000)
-                    } catch {
-                        break
-                    }
-                    phase = 0
+
+            .onAppear {
+                withAnimation(.linear(duration: 5).repeatForever(autoreverses: false)) {
+                    phase = 1
                 }
             }
         }

@@ -9,6 +9,6 @@ import Foundation
 
 class NoiseOscillator: Oscillator {
     override func perform(_ time: Double) -> Double {
-        return amplitude * Double.random(in: -1 ... 1) + offset
+        return amplitude * Double.random(in: -1 ... 1)
     }
 }

@@ -9,6 +9,6 @@ import Foundation
 
 class SineOscillator: Oscillator {
     override func perform(_ time: Double) -> Double {
-        return amplitude * sin(2.0 * Double.pi * frequency * time + offset)
+        return amplitude * sin(2.0 * Double.pi * frequency * (time + offset))
     }
 }

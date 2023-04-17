@@ -28,7 +28,7 @@ class OscillatorGroup: Oscillator {
             return 0
         } else {
             return oscillators.reduce(1) { partialResult, osc in
-                let result = partialResult * osc.perform(time * frequency) + offset
+                let result = partialResult * osc.perform((time + offset) * frequency)
                 return result
             } * amplitude
         }

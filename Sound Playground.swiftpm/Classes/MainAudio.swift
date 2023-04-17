@@ -39,6 +39,7 @@ class MainAudio: ObservableObject {
         
         let mainMixer = audioEngine.mainMixerNode
         let outputNode = audioEngine.outputNode
+        try? outputNode.setVoiceProcessingEnabled(false)
         
         format = outputNode.inputFormat(forBus: 0)
         
@@ -77,7 +78,7 @@ class MainAudio: ObservableObject {
         nodes[id] = audioNode
         oscillators.append(osc)
     
-        volume = 1 / Float(oscillators.count)
+//        volume = 1 / Float(oscillators.count)
     }
     
     func remove(oscillator osc: Oscillator) {
@@ -92,7 +93,7 @@ class MainAudio: ObservableObject {
         nodes.removeValue(forKey: id)
         oscillators.remove(element: osc)
         
-        volume = 1 / Float(oscillators.count)
+//        volume = 1 / Float(oscillators.count)
     }
     
     func pause() {

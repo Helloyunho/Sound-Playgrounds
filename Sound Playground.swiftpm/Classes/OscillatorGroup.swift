@@ -12,7 +12,7 @@ class OscillatorGroup: Oscillator {
     @Published var oscillators = [Oscillator]()
     
     convenience init() {
-        self.init(amplitude: 1, frequency: 1)
+        self.init(amplitude: 1, frequency: 1, offset: 0)
     }
     
     func add(oscillator: Oscillator) {
@@ -28,7 +28,7 @@ class OscillatorGroup: Oscillator {
             return 0
         } else {
             return oscillators.reduce(1) { partialResult, osc in
-                let result = partialResult * osc.perform(time * frequency)
+                let result = partialResult * osc.perform(time * frequency) + offset
                 return result
             } * amplitude
         }

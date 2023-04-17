@@ -33,7 +33,7 @@ struct OscillatorView: View {
                             .font(.largeTitle)
                             .foregroundColor(.white)
                     } else {
-                        Text(String(format: "%.2f Hz (%@%d)", oscillator.frequency, keys[Int((12 * log2(oscillator.frequency / 440)).rounded(.toNearestOrEven)) %% 12], (Int(log2(oscillator.frequency/440)) + 4)))
+                        Text(String(format: "%.2f Hz (%@%d)", oscillator.frequency, keys[Int((12 * log2(oscillator.frequency / 440)).rounded(.toNearestOrEven)) %% 12], (Int(log2(oscillator.frequency/440) + 9.5/12) + 4)))
                             .font(.largeTitle)
                             .foregroundColor(.white)
                     }
@@ -49,15 +49,15 @@ struct OscillatorView: View {
                             fingerOnIt = true
                         }
                         if let initialProperties {
-                            if value.translation.width > 0 || value.translation.width < 0 {
+                            if value.translation.width != 0 {
                                 if oscillator is OscillatorGroup {
                                     oscillator.frequency = initialProperties.1 + value.translation.width/2
                                 } else {
-                                    oscillator.frequency = pow(2, log2(initialProperties.1) + value.translation.width/50)
+                                    oscillator.frequency = pow(2, log2(initialProperties.1) + value.translation.width/100)
                                 }
                             }
-                            if value.translation.height < 0 || value.translation.height > 0 {
-                                oscillator.amplitude = initialProperties.0-value.translation.height/20
+                            if value.translation.height != 0 {
+                                oscillator.amplitude = initialProperties.0 - value.translation.height / 40
                             }
                         } else {
                             initialProperties = (oscillator.amplitude, oscillator.frequency)
@@ -75,7 +75,7 @@ struct OscillatorView: View {
 
             .onAppear {
                 withAnimation(.linear(duration: 5).repeatForever(autoreverses: false)) {
-                    phase = 1
+                    phase = 1 / oscillator.frequency
                 }
             }
         }
@@ -83,7 +83,7 @@ struct OscillatorView: View {
 }
 
 struct OscillatorView_Preview: View {
-    var oscillator = SawtoothOscillator(amplitude: 1, frequency: 30)
+    var oscillator = SawtoothOscillator(amplitude: 1, frequency: 30, offset: 0)
     var body: some View {
         OscillatorView(oscillator: oscillator, color: .blue)
     }

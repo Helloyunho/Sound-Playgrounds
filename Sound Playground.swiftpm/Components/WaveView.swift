@@ -56,7 +56,7 @@ struct WaveView: Shape {
 }
 
 struct WaveView_Preview: View {
-    var oscillator = SineOscillator(amplitude: 1, frequency: 1)
+    var oscillator = SineOscillator(amplitude: 1, frequency: 1, offset: 0)
     @State var phase: Double = 0
     var body: some View {
         WaveView(oscillator: oscillator, phase: self.phase)

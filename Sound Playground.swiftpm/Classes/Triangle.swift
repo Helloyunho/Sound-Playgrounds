@@ -12,7 +12,7 @@ import SwiftUI
 class TriangleOscillator: Oscillator {
     override func perform(_ time: Double) -> Double {
         let period = 1.0 / frequency
-        let currentTime = fmod(time, period)
+        let currentTime = fmod(time + offset, period)
         
         let value = currentTime / period
         

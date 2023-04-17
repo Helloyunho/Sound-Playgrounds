@@ -13,10 +13,12 @@ struct OscillatorListView: View {
     @State var showGroupEditor = false
     @State var showFrequencyEditor = false
     @State var showAmplitudeEditor = false
+    @State var showOffsetEditor = false
     @State var showDeleteAlert = false
     @State var selectedOscillator: Oscillator? = nil
     @State var frequency = ""
     @State var amplitude = ""
+    @State var offset = ""
     var onDelete: (Oscillator) -> Void = { _ in }
     var body: some View {
         ScrollView {
@@ -49,6 +51,12 @@ struct OscillatorListView: View {
                                 selectedOscillator = oscillator
                             } label: {
                                 Label("Set Amplitude", systemImage: "speaker.wave.2.circle")
+                            }
+                            Button {
+                                showOffsetEditor = true
+                                selectedOscillator = oscillator
+                            } label: {
+                                Label("Set Offset", systemImage: "timer")
                             }
                             Divider()
                             Button(role: .destructive) {
@@ -102,6 +110,21 @@ struct OscillatorListView: View {
                 Text("OK")
             }
         }
+        .alert("Set Offset", isPresented: $showOffsetEditor) {
+            TextField("Offset", text: $offset)
+                .keyboardType(.decimalPad)
+            Button(role: .cancel) {} label: {
+                Text("Cancel")
+            }
+            Button {
+                if let offset = Double(offset), let selectedOscillator {
+                    selectedOscillator.offset = offset
+                }
+                offset = ""
+            } label: {
+                Text("OK")
+            }
+        }
         .alert("Delete", isPresented: $showDeleteAlert) {
             Button(role: .cancel) {} label: {
                 Text("Cancel")
@@ -120,7 +143,7 @@ struct OscillatorListView: View {
 }
 
 struct OscillatorListView_Preview: View {
-    @State var oscillator: [Oscillator] = [SineOscillator(amplitude: 1, frequency: 440), SquareOscillator(amplitude: 1, frequency: 440)]
+    @State var oscillator: [Oscillator] = [SineOscillator(amplitude: 1, frequency: 440, offset: 0), SquareOscillator(amplitude: 1, frequency: 440, offset: 10)]
     var body: some View {
         OscillatorListView(oscillators: $oscillator)
     }

@@ -31,26 +31,28 @@ class Oscillator: Identifiable, ObservableObject, Equatable {
             }
         }
     }
+    @Published var offset: Double
     @Published var color: Colors
     var id: UUID
     
     convenience init() {
-        self.init(amplitude: 1, frequency: 440, color: .allCases.randomElement()!)
+        self.init(amplitude: 1, frequency: 440, color: .allCases.randomElement()!, offset: 0)
     }
     
-    convenience init(amplitude: Double, frequency: Double) {
-        self.init(amplitude: amplitude, frequency: frequency, color: .allCases.randomElement()!)
+    convenience init(amplitude: Double, frequency: Double, offset: Double) {
+        self.init(amplitude: amplitude, frequency: frequency, color: .allCases.randomElement()!, offset: offset)
     }
     
-    init(amplitude: Double, frequency: Double, color: Colors) {
+    init(amplitude: Double, frequency: Double, color: Colors, offset: Double) {
         self.amplitude = amplitude
         self.frequency = frequency
         self.id = UUID()
         self.color = color
+        self.offset = offset
     }
     
     func perform(_ time: Double) -> Double {
         // don't do anything by default
-        return time
+        return time + offset
     }
 }

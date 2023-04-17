@@ -39,6 +39,7 @@ struct OscillatorListView: View {
                                 } label: {
                                     Label("Edit", systemImage: "pencil")
                                 }
+                                Divider()
                             }
                             Button {
                                 showFrequencyEditor = true

@@ -22,7 +22,7 @@ struct OscillatorView: View {
             ZStack {
                 color.getSwiftUIGradient()
                 WaveView(oscillator: oscillator, phase: phase)
-                    .stroke(Color.white, lineWidth: 5) // TODO: Add animation to it
+                    .stroke(Color.white, lineWidth: 5)
                 Color.black.opacity(fingerOnIt ? 0.3 : 0)
                 VStack {
                     Text(String(format: "%.2f%%", oscillator.amplitude * 100))

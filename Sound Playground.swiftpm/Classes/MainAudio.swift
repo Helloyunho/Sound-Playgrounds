@@ -9,7 +9,6 @@ import AVFoundation
 import CoreAudio
 import Foundation
 
-// Based on https://github.com/GrantJEmerson/SwiftSynth/blob/master/Swift%20Synth/Audio/Synth.swift and modified to support multi track
 @MainActor
 class MainAudio: ObservableObject {
     public var volume: Float {
@@ -24,15 +23,12 @@ class MainAudio: ObservableObject {
     @Published public var oscillators = [Oscillator]()
 
     private var audioEngine: AVAudioEngine
-    
-//    private var time: Double = 0
+
     private let sampleRate: Double
     private let deltaTime: Double
     private let format: AVAudioFormat
     
     private var nodes = [UUID: AVAudioNode]()
-    
-    // MARK: Init
     
     init() {
         audioEngine = AVAudioEngine()
@@ -77,8 +73,6 @@ class MainAudio: ObservableObject {
         
         nodes[id] = audioNode
         oscillators.append(osc)
-    
-//        volume = 1 / Float(oscillators.count)
     }
     
     func remove(oscillator osc: Oscillator) {
@@ -92,8 +86,6 @@ class MainAudio: ObservableObject {
         
         nodes.removeValue(forKey: id)
         oscillators.remove(element: osc)
-        
-//        volume = 1 / Float(oscillators.count)
     }
     
     func pause() {

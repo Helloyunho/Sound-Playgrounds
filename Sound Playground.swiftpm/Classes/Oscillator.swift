@@ -52,7 +52,6 @@ class Oscillator: Identifiable, ObservableObject, Equatable {
     }
     
     func perform(_ time: Double) -> Double {
-        // don't do anything by default
         return time + offset
     }
 }

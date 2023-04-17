@@ -8,7 +8,6 @@
 import Foundation
 import SwiftUI
 
-// Based on https://github.com/GrantJEmerson/SwiftSynth/blob/master/Swift%20Synth/Audio/Oscillator.swift
 class TriangleOscillator: Oscillator {
     override func perform(_ time: Double) -> Double {
         let period = 1.0 / frequency

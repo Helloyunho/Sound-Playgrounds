@@ -6,6 +6,7 @@
 //
 
 import AVFoundation
+import CoreAudio
 import Foundation
 
 // Based on https://github.com/GrantJEmerson/SwiftSynth/blob/master/Swift%20Synth/Audio/Synth.swift and modified to support multi track

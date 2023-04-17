@@ -9,6 +9,7 @@ import SwiftUI
 
 struct GroupEditorView: View {
     @ObservedObject var oscillator: OscillatorGroup
+    @Environment(\.dismiss) var dismiss
     var body: some View {
         NavigationView {
             Group {
@@ -16,6 +17,13 @@ struct GroupEditorView: View {
                     oscillator.remove(oscillator: osc)
                 }
                 .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button {
+                            dismiss()
+                        } label: {
+                            Text("Done")
+                        }
+                    }
                     ToolbarItemGroup(placement: .bottomBar) {
                         Menu {
                             Button {

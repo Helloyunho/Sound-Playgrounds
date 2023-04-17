@@ -5,8 +5,8 @@
 //  Created by Helloyunho on 2023/04/07.
 //
 
-import Foundation
 import AVFAudio
+import Foundation
 
 class OscillatorGroup: Oscillator {
     @Published var oscillators = [Oscillator]()

@@ -33,7 +33,7 @@ struct OscillatorView: View {
                             .font(.largeTitle)
                             .foregroundColor(.white)
                     } else {
-                        Text(String(format: "%.2f Hz (%@%d)", oscillator.frequency, keys[Int((12 * log2(oscillator.frequency / 440)).rounded(.toNearestOrEven)) %% 12], (Int(log2(oscillator.frequency/440) + 9.5/12) + 4)))
+                        Text(String(format: "%.2f Hz (%@%d)", oscillator.frequency, keys[Int((12 * log2(oscillator.frequency / 440)).rounded(.toNearestOrEven)) %% 12], Int(log2(oscillator.frequency / 440) + 9.5 / 12) + 4))
                             .font(.largeTitle)
                             .foregroundColor(.white)
                     }
@@ -51,9 +51,9 @@ struct OscillatorView: View {
                         if let initialProperties {
                             if value.translation.width != 0 {
                                 if oscillator is OscillatorGroup {
-                                    oscillator.frequency = initialProperties.1 + value.translation.width/2
+                                    oscillator.frequency = initialProperties.1 + value.translation.width / 2
                                 } else {
-                                    oscillator.frequency = pow(2, log2(initialProperties.1) + value.translation.width/100)
+                                    oscillator.frequency = pow(2, log2(initialProperties.1) + value.translation.width / 100)
                                 }
                             }
                             if value.translation.height != 0 {

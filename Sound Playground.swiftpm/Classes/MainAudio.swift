@@ -19,6 +19,7 @@ class MainAudio: ObservableObject {
             audioEngine.mainMixerNode.outputVolume
         }
     }
+
     @Published public var isPlaying = false
     @Published public var oscillators = [Oscillator]()
 
@@ -89,14 +90,14 @@ class MainAudio: ObservableObject {
     }
     
     func pause() {
-        self.audioEngine.pause()
-        self.isPlaying = false
+        audioEngine.pause()
+        isPlaying = false
     }
     
     func play() {
         do {
             try audioEngine.start()
-            self.isPlaying = true
+            isPlaying = true
         } catch {
             print("Could not start engine: \(error.localizedDescription)")
         }

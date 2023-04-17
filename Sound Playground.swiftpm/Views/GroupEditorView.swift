@@ -1,6 +1,6 @@
 //
 //  GroupEditorView.swift
-//  
+//
 //
 //  Created by Helloyunho on 2023/04/12.
 //
@@ -69,14 +69,14 @@ struct GroupEditorView: View {
                     }
                 }
             }
-        .navigationTitle(Text("Group Editor"))
+            .navigationTitle(Text("Group Editor"))
         }
         .navigationViewStyle(.stack)
     }
 }
 
 struct GroupEditorView_Preview: View {
-    var osc: OscillatorGroup = OscillatorGroup()
+    var osc: OscillatorGroup = .init()
     var body: some View {
         GroupEditorView(oscillator: osc)
     }

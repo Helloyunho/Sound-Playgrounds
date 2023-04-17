@@ -37,7 +37,7 @@ extension Colors {
             return .init(colors: [.init(rgba: 0x8C939CFF), .init(rgba: 0x79828CFF)], startPoint: .topLeading, endPoint: .bottomTrailing)
         }
     }
-    
+
     func getSwiftUIColor() -> Color {
         switch self {
         case .red:

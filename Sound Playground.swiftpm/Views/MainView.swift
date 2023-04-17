@@ -1,6 +1,6 @@
 //
-//  SwiftUIView.swift
-//  
+//  MainView.swift
+//
 //
 //  Created by Helloyunho on 2023/04/11.
 //
@@ -75,7 +75,7 @@ struct MainView: View {
                     }
                 }
             }
-        .navigationTitle(Text("Sound Playgrounds"))
+            .navigationTitle(Text("Sound Playgrounds"))
         }
         .onAppear {
             let defaults = UserDefaults.standard

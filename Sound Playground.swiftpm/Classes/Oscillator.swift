@@ -5,8 +5,8 @@
 //  Created by Helloyunho on 2023/04/07.
 //
 
-import Foundation
 import AVFAudio
+import Foundation
 
 class Oscillator: Identifiable, ObservableObject, Equatable {
     static func == (lhs: Oscillator, rhs: Oscillator) -> Bool {
@@ -22,6 +22,7 @@ class Oscillator: Identifiable, ObservableObject, Equatable {
             }
         }
     }
+
     @Published var frequency: Double {
         didSet {
             if frequency > 20000 {
@@ -31,6 +32,7 @@ class Oscillator: Identifiable, ObservableObject, Equatable {
             }
         }
     }
+
     @Published var offset: Double
     @Published var color: Colors
     var id: UUID

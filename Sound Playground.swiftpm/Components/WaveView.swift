@@ -1,6 +1,6 @@
 //
 //  SwiftUIView.swift
-//  
+//
 //
 //  Created by Helloyunho on 2023/04/07.
 //
@@ -13,9 +13,9 @@ struct WaveView: Shape {
     var phase: Double
     var animatableData: Double {
         get { phase }
-        set { self.phase = newValue }
+        set { phase = newValue }
     }
-    
+
     func path(in rect: CGRect) -> Path {
         let path = UIBezierPath()
 

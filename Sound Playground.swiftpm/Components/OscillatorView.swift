@@ -23,6 +23,12 @@ struct OscillatorView: View {
                 color.getSwiftUIGradient()
                 WaveView(oscillator: oscillator, phase: phase)
                     .stroke(Color.white, lineWidth: 5)
+                VStack {
+                    Spacer()
+                    TicksView()
+                        .stroke(Color.white.opacity(0.6), lineWidth: 4)
+                        .frame(height: 12)
+                }
                 Color.black.opacity(fingerOnIt ? 0.3 : 0)
                 VStack {
                     Text(String(format: "%.2f%%", oscillator.amplitude * 100))
@@ -53,7 +59,7 @@ struct OscillatorView: View {
                                 if oscillator is OscillatorGroup {
                                     oscillator.frequency = initialProperties.1 + value.translation.width / 2
                                 } else {
-                                    oscillator.frequency = pow(2, log2(initialProperties.1) + value.translation.width / 100)
+                                    oscillator.frequency = pow(2, log2(initialProperties.1) + value.translation.width / 200)
                                 }
                             }
                             if value.translation.height != 0 {

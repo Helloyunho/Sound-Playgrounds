@@ -1,6 +1,6 @@
 //
 //  TicksView.swift
-//  
+//
 //
 //  Created by Helloyunho on 2023/04/17.
 //
@@ -18,7 +18,7 @@ struct TicksView: Shape {
         while currentX <= width {
             path.move(to: .init(x: currentX, y: 0))
             path.addLine(to: .init(x: currentX, y: currentY))
-            currentX += 200 / 12
+            currentX += 400 / 12
         }
 
         return Path(path.cgPath)

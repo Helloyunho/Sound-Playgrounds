@@ -12,7 +12,7 @@ class Oscillator: Identifiable, ObservableObject, Equatable {
     static func == (lhs: Oscillator, rhs: Oscillator) -> Bool {
         lhs.id == rhs.id && lhs.amplitude == rhs.amplitude && lhs.frequency == rhs.frequency
     }
-    
+
     @Published var amplitude: Double {
         didSet {
             if amplitude > 1 {
@@ -36,15 +36,15 @@ class Oscillator: Identifiable, ObservableObject, Equatable {
     @Published var offset: Double
     @Published var color: Colors
     var id: UUID
-    
+
     convenience init() {
         self.init(amplitude: 1, frequency: 440, color: .allCases.randomElement()!, offset: 0)
     }
-    
+
     convenience init(amplitude: Double, frequency: Double, offset: Double) {
         self.init(amplitude: amplitude, frequency: frequency, color: .allCases.randomElement()!, offset: offset)
     }
-    
+
     init(amplitude: Double, frequency: Double, color: Colors, offset: Double) {
         self.amplitude = amplitude
         self.frequency = frequency
@@ -52,7 +52,7 @@ class Oscillator: Identifiable, ObservableObject, Equatable {
         self.color = color
         self.offset = offset
     }
-    
+
     func perform(_ time: Double) -> Double {
         return time + offset
     }

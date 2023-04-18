@@ -59,7 +59,7 @@ struct OscillatorView: View {
                                 if oscillator is OscillatorGroup {
                                     oscillator.frequency = initialProperties.1 + value.translation.width / 2
                                 } else {
-                                    oscillator.frequency = pow(2, log2(initialProperties.1) + value.translation.width / 200)
+                                    oscillator.frequency = pow(2, log2(initialProperties.1) + value.translation.width / 400)
                                 }
                             }
                             if value.translation.height != 0 {
@@ -83,7 +83,7 @@ struct OscillatorView: View {
                     withAnimation(.linear(duration: 1)) {
                         phase = 1 / oscillator.frequency
                     }
-                    
+
                     try? await Task.sleep(nanoseconds: 1 * 1000 * 1000 * 1000)
                     phase = 0
                 }

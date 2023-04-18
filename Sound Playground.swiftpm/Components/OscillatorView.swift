@@ -78,10 +78,14 @@ struct OscillatorView: View {
                         }
                     }
             )
-
-            .onAppear {
-                withAnimation(.linear(duration: 5).repeatForever(autoreverses: false)) {
-                    phase = 1 / oscillator.frequency
+            .task {
+                while true {
+                    withAnimation(.linear(duration: 1)) {
+                        phase = 1 / oscillator.frequency
+                    }
+                    
+                    try? await Task.sleep(nanoseconds: 1 * 1000 * 1000 * 1000)
+                    phase = 0
                 }
             }
         }

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-// Copied from https://www.hackingwithswift.com/plus/custom-swiftui-components/creating-a-waveview-to-draw-smooth-waveforms
+// Based on https://www.hackingwithswift.com/plus/custom-swiftui-components/creating-a-waveview-to-draw-smooth-waveforms
 struct WaveView: Shape {
     var oscillator: Oscillator
     var phase: Double
@@ -16,6 +16,7 @@ struct WaveView: Shape {
         set { phase = newValue }
     }
 
+    // learnt how to use bezier path
     func path(in rect: CGRect) -> Path {
         let path = UIBezierPath()
 

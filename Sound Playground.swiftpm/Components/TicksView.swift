@@ -18,7 +18,7 @@ struct TicksView: Shape {
         while currentX <= width {
             path.move(to: .init(x: currentX, y: 0))
             path.addLine(to: .init(x: currentX, y: currentY))
-            currentX += 400 / 12
+            currentX += 400 / 12 // works better than i thought
         }
 
         return Path(path.cgPath)

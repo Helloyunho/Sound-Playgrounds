@@ -23,11 +23,25 @@ struct OscillatorView: View {
                 color.getSwiftUIGradient()
                 WaveView(oscillator: oscillator, phase: phase)
                     .stroke(Color.white, lineWidth: 5)
-                VStack {
+                VStack(spacing: 4) {
                     Spacer()
+                    if oscillator is NoiseOscillator {
+                        Text("Noise")
+                    } else if oscillator is OscillatorGroup {
+                        Text("Group")
+                    } else if oscillator is SawtoothOscillator {
+                        Text("Sawtooth")
+                    } else if oscillator is SineOscillator {
+                        Text("Sine")
+                    } else if oscillator is SquareOscillator {
+                        Text("Square")
+                    } else if oscillator is TriangleOscillator {
+                        Text("Triangle")
+                    }
                     TicksView()
                         .stroke(Color.white.opacity(0.6), lineWidth: 4)
                         .frame(height: 12)
+                    // each tick means one note change (ex. C -> C#)
                 }
                 Color.black.opacity(fingerOnIt ? 0.3 : 0)
                 VStack {
@@ -87,6 +101,8 @@ struct OscillatorView: View {
                     try? await Task.sleep(nanoseconds: 1 * 1000 * 1000 * 1000)
                     phase = 0
                 }
+                // repeatForever doesn't follow changes made to frequency
+                // dirty hack but it works :D
             }
         }
     }

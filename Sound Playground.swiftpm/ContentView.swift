@@ -6,6 +6,7 @@ struct ContentView: View {
         MainView()
             .onAppear {
                 try? AVAudioSession.sharedInstance().setCategory(.playback, options: [.mixWithOthers, .allowBluetooth, .allowBluetoothA2DP, .allowAirPlay])
+                try? AVAudioSession.sharedInstance().setActive(true)
             }
     }
 }

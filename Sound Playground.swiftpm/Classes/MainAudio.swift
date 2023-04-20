@@ -9,17 +9,10 @@ import AVFoundation
 import CoreAudio
 import Foundation
 
+// Based on https://github.com/GrantJEmerson/SwiftSynth/blob/master/Swift%20Synth/Audio/Synth.swift
+// and heavily modified by me
 @MainActor
 class MainAudio: ObservableObject {
-    public var volume: Float {
-        set {
-            audioEngine.mainMixerNode.outputVolume = newValue
-        }
-        get {
-            audioEngine.mainMixerNode.outputVolume
-        }
-    }
-
     @Published public var isPlaying = false
     @Published public var oscillators = [Oscillator]()
 

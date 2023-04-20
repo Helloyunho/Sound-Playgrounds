@@ -37,29 +37,4 @@ extension Colors {
             return .init(colors: [.init(rgba: 0x8C939CFF), .init(rgba: 0x79828CFF)], startPoint: .topLeading, endPoint: .bottomTrailing)
         }
     }
-
-    func getSwiftUIColor() -> Color {
-        switch self {
-        case .red:
-            return .init(rgba: 0xDB5757FF)
-        case .blue:
-            return .init(rgba: 0x3951ADFF)
-        case .green:
-            return .init(rgba: 0x26BFA1FF)
-        case .purple:
-            return .init(rgba: 0x6C43A8FF)
-        case .pink:
-            return .init(rgba: 0xD979C0FF)
-        case .yellow:
-            return .init(rgba: 0xE69D4CFF)
-        case .cyan:
-            return .init(rgba: 0x3BBCD1FF)
-        case .black:
-            return .init(rgba: 0x191E1FFF)
-        case .orange:
-            return .init(rgba: 0xEB7B5BFF)
-        case .gray:
-            return .init(rgba: 0x79828CFF)
-        }
-    }
 }

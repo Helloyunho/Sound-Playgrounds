@@ -8,6 +8,7 @@
 import AVFAudio
 import Foundation
 
+// Based on https://github.com/GrantJEmerson/SwiftSynth/blob/master/Swift%20Synth/Audio/Oscillator.swift
 class Oscillator: Identifiable, ObservableObject, Equatable {
     static func == (lhs: Oscillator, rhs: Oscillator) -> Bool {
         lhs.id == rhs.id && lhs.amplitude == rhs.amplitude && lhs.frequency == rhs.frequency
@@ -53,6 +54,7 @@ class Oscillator: Identifiable, ObservableObject, Equatable {
         self.offset = offset
     }
 
+    // just return time + offset for default
     func perform(_ time: Double) -> Double {
         return time + offset
     }
